@@ -175,8 +175,8 @@ func processIfConnectionStatusCommand(command *commands.Command, operated bool) 
 	if beacon != nil {
 		resp = map[string]interface{}{
 			"local_name":  beacon.LocalName,
-			"connectable": true,
-			"address":     beacon.Address.String(),
+			"connectable": beacon.Connectable,
+			"address":     beacon.Address,
 			"rssi":        beacon.RSSI,
 			"operated":    operated,
 		}
@@ -350,7 +350,7 @@ func (bc *BleControl) TryConnectToVehicle(ctx context.Context, firstCommand *com
 		}
 	}
 
-	log.Debug("beacon found", "localName", scanResult.LocalName, "addr", scanResult.Address.String(), "rssi", scanResult.RSSI)
+	log.Debug("beacon found", "localName", scanResult.LocalName, "addr", scanResult.Address, "rssi", scanResult.RSSI)
 
 	log.Debug("connect to vehicle ...")
 	bc.connectionStart = time.Now()
